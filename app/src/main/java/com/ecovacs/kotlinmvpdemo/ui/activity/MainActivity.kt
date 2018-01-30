@@ -20,6 +20,9 @@ import java.util.*
  * Created by liang.liu on 2018/1/23.
  */
 class MainActivity : BaseActivity() {
+    override fun layoutId(): Int {
+        return R.layout.activity_main
+    }
 
     private val mTitles = arrayOf("每日精选", "发现", "热门", "我的")
 
@@ -50,7 +53,6 @@ class MainActivity : BaseActivity() {
         switchFragment(mIndex)
     }
 
-    override fun getLayout(): Int = R.layout.activity_main
 
     override fun onSaveInstanceState(outState: Bundle) {
         //记录fragment的位置,防止崩溃 activity被系统回收时，fragment错乱

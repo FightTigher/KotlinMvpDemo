@@ -9,8 +9,11 @@ import android.widget.EditText
 import com.classic.common.MultipleStatusView
 import com.ecovacs.kotlinmvpdemo.MyApplication
 
+
 /**
- * Created by liang.liu on 2018/1/23.
+ * @author xuhao
+ * created: 2017/10/25
+ * desc:BaseActivity基类
  */
 abstract class BaseActivity : AppCompatActivity() {
     /**
@@ -20,43 +23,68 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(getLayout())
+        setContentView(layoutId())
         initData()
         initView()
         start()
         initListener()
-    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        MyApplication.getRefWatcher(this)?.watch(this)
-    }
 
+    }
 
     private fun initListener() {
-        mLayoutStatusView?.setOnRetryClickListener(mRetryClickListener)
+        mLayoutStatusView?.setOnClickListener(mRetryClickListener)
     }
 
     open val mRetryClickListener: View.OnClickListener = View.OnClickListener {
         start()
     }
 
-    abstract fun start()
 
-    abstract fun initView()
+    /**
+     *  加载布局
+     */
+    abstract fun layoutId(): Int
 
+    /**
+     * 初始化数据
+     */
     abstract fun initData()
 
-    abstract fun getLayout(): Int
+    /**
+     * 初始化 View
+     */
+    abstract fun initView()
 
+    /**
+     * 开始请求
+     */
+    abstract fun start()
+
+
+    /**
+     * 打卡软键盘
+     */
     fun openKeyBord(mEditText: EditText, mContext: Context) {
-        val ims = mContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        ims.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN)
-        ims.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+        val imm = mContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN)
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
     }
 
-    fun closeKeyBoard(mEditText: EditText, mContext: Context) {
-        val ims = mContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        ims.hideSoftInputFromWindow(mEditText.windowToken, 0)
+    /**
+     * 关闭软键盘
+     */
+    fun closeKeyBord(mEditText: EditText, mContext: Context) {
+        val imm = mContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(mEditText.windowToken, 0)
     }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        MyApplication.getRefWatcher(this)?.watch(this)
+    }
+
 }
+
+

@@ -1,12 +1,15 @@
-package com.ecovacs.kotlinmvpdemo.mvp.model.contract
+package com.ecovacs.kotlinmvpdemo.mvp.contract
 
 import com.ecovacs.kotlinmvpdemo.base.IBaseView
 import com.ecovacs.kotlinmvpdemo.base.IPresenter
 import com.ecovacs.kotlinmvpdemo.mvp.model.bean.HomeBean
 
+
 /**
- * Created by liang.liu on 2018/1/23.
+ * Created by xuhao on 2017/11/8.
+ * 契约类
  */
+
 interface HomeContract {
 
     interface View : IBaseView {
@@ -26,6 +29,7 @@ interface HomeContract {
          */
         fun showError(msg: String,errorCode:Int)
 
+
     }
 
     interface Presenter : IPresenter<View> {
@@ -40,6 +44,8 @@ interface HomeContract {
          */
         fun loadMoreData()
 
+
     }
+
 
 }

@@ -1,11 +1,14 @@
 package com.ecovacs.kotlinmvpdemo.base
 
 /**
- * Created by liang.liu on 2018/1/23.
+ * @author Jake.Ho
+ * created: 2017/10/25
+ * desc:
  */
 interface IBaseView {
 
     fun showLoading()
 
     fun dismissLoading()
+
 }

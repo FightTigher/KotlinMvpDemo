@@ -20,6 +20,7 @@ import me.weyye.hipermission.PermissionItem
  * Created by liang.liu on 2018/1/23.
  */
 class SplashActivity : BaseActivity() {
+    override fun layoutId(): Int =R.layout.activity_splash
 
 
     private var textTypeface: Typeface? = null
@@ -30,9 +31,6 @@ class SplashActivity : BaseActivity() {
         textTypeface = Typeface.createFromAsset(MyApplication.context.assets, "fonts/Lobster-1.4.otf")
         descTypeFace = Typeface.createFromAsset(MyApplication.context.assets, "fonts/FZLanTingHeiS-L-GB-Regular.TTF")
     }
-
-
-    override fun getLayout(): Int = R.layout.activity_splash
 
     override fun start() {
 

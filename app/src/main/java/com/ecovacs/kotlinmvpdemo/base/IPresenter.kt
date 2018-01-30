@@ -1,11 +1,17 @@
 package com.ecovacs.kotlinmvpdemo.base
 
+
 /**
- * Created by liang.liu on 2018/1/23.
+ * @author Jake.Ho
+ * created: 2017/10/25
+ * desc: Presenter 基类
  */
-interface IPresenter<in V : IBaseView> {
+
+
+interface IPresenter<in V: IBaseView> {
 
     fun attachView(mRootView: V)
 
     fun detachView()
+
 }

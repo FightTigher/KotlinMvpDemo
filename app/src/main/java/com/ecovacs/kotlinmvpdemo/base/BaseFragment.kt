@@ -11,9 +11,13 @@ import com.ecovacs.kotlinmvpdemo.MyApplication
 
 
 /**
- * Created by liang.liu on 2018/1/23.
+ * @author Xuhao
+ * created: 2017/10/25
+ * desc:
  */
-abstract class BaseFragment : Fragment() {
+
+ abstract class BaseFragment: Fragment() {
+
     /**
      * 视图是否加载完毕
      */
@@ -27,13 +31,11 @@ abstract class BaseFragment : Fragment() {
      */
     protected var mLayoutStatusView: MultipleStatusView? = null
 
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(getLayoutId(), null)
+        return inflater?.inflate(getLayoutId(),null)
     }
 
-    @LayoutRes
-    abstract fun getLayoutId(): Int
+
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
@@ -47,8 +49,8 @@ abstract class BaseFragment : Fragment() {
         isViewPrepare = true
         initView()
         lazyLoadDataIfPrepared()
-        //多种状态切换的View 重试点击事件
-        mLayoutStatusView?.setOnRetryClickListener(mRetryClickListener)
+        //多种状态切换的view 重试点击事件
+        mLayoutStatusView?.setOnClickListener(mRetryClickListener)
     }
 
     private fun lazyLoadDataIfPrepared() {
@@ -62,12 +64,22 @@ abstract class BaseFragment : Fragment() {
         lazyLoad()
     }
 
+
+    /**
+     * 加载布局
+     */
+    @LayoutRes
+    abstract fun getLayoutId():Int
+
+    /**
+     * 初始化 ViewI
+     */
+    abstract fun initView()
+
     /**
      * 懒加载
      */
     abstract fun lazyLoad()
-
-    abstract fun initView()
 
     override fun onDestroy() {
         super.onDestroy()

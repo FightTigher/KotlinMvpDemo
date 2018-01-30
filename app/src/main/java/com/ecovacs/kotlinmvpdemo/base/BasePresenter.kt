@@ -1,18 +1,22 @@
 package com.ecovacs.kotlinmvpdemo.base
 
+
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
+
+
 /**
- * Created by liang.liu on 2018/1/23.
+ * Created by xuhao on 2017/11/16.
+ *
  */
 open class BasePresenter<T : IBaseView> : IPresenter<T> {
-
 
     var mRootView: T? = null
         private set
 
     private var compositeDisposable = CompositeDisposable()
+
 
     override fun attachView(mRootView: T) {
         this.mRootView = mRootView
@@ -21,9 +25,11 @@ open class BasePresenter<T : IBaseView> : IPresenter<T> {
     override fun detachView() {
         mRootView = null
 
-        if (!compositeDisposable.isDisposed){
+         //保证activity结束时取消所有正在执行的订阅
+        if (!compositeDisposable.isDisposed) {
             compositeDisposable.clear()
         }
+
     }
 
     private val isViewAttached: Boolean
@@ -37,9 +43,7 @@ open class BasePresenter<T : IBaseView> : IPresenter<T> {
         compositeDisposable.add(disposable)
     }
 
+    private class MvpViewNotAttachedException internal constructor() : RuntimeException("Please call IPresenter.attachView(IBaseView) before" + " requesting data to the IPresenter")
 
-    private class MvpViewNotAttachedException internal constructor()
-        : RuntimeException("Please call IPresenter.attachView(IBaseView) before" + " requesting data to the IPresenter")
+
 }
-
-

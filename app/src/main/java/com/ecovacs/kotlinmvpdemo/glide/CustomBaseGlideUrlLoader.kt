@@ -1,4 +1,4 @@
-package com.hazz.kotlinmvp.glide
+package com.ecovacs.kotlinmvpdemo.glide
 
 import com.bumptech.glide.load.Options
 import com.bumptech.glide.load.model.*

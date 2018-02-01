@@ -1,7 +1,10 @@
 package com.ecovacs.kotlinmvpdemo.ui.fragment
 
 import android.os.Bundle
+import com.ecovacs.kotlinmvpdemo.R
 import com.ecovacs.kotlinmvpdemo.base.BaseFragment
+import com.ecovacs.kotlinmvpdemo.utils.StatusBarUtil
+import kotlinx.android.synthetic.main.fragment_hot.*
 
 /**
  * Created by liang.liu on 2018/1/23.
@@ -20,15 +23,16 @@ class DiscoveryFragment : BaseFragment() {
         }
     }
 
-    override fun getLayoutId(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_hot
 
     override fun lazyLoad() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun initView() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        //状态栏透明和间距处理
+        StatusBarUtil.darkMode(activity)
+        StatusBarUtil.setPaddingSmart(activity, toolbar)
     }
 }

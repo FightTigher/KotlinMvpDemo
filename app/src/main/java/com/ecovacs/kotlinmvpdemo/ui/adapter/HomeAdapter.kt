@@ -2,18 +2,24 @@ package com.ecovacs.kotlinmvpdemo.ui.adapter
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.support.v4.app.ActivityCompat
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import cn.bingoogolapple.bgabanner.BGABanner
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.ecovacs.kotlinmvpdemo.Constants
 import com.ecovacs.kotlinmvpdemo.R
 import com.ecovacs.kotlinmvpdemo.durationFormat
+import com.ecovacs.kotlinmvpdemo.glide.GlideApp
 import com.ecovacs.kotlinmvpdemo.mvp.model.bean.HomeBean
+import com.ecovacs.kotlinmvpdemo.ui.activity.VideoDetailActivity
 import com.ecovacs.kotlinmvpdemo.view.recyclerview.ViewHolder
 import com.ecovacs.kotlinmvpdemo.view.recyclerview.adapter.CommonAdapter
-import com.hazz.kotlinmvp.glide.GlideApp
 
 import io.reactivex.Observable
 
@@ -96,16 +102,18 @@ class HomeAdapter(context: Context, data: ArrayList<HomeBean.Issue.Item>)
                             bannerTitleList.add(list.data?.title?:"")
                         })
 
+
                 //设置 banner
                 with(holder) {
                     getView<BGABanner>(R.id.banner).run {
                         setAutoPlayAble(bannerFeedList.size > 1)
                         setData(bannerFeedList, bannerTitleList)
                         setAdapter(object : BGABanner.Adapter<ImageView, String> {
-                            override fun fillBannerItem(bgaBanner: BGABanner?, imageView: ImageView?, feedImageUrl: String?, position: Int) {
-                                com.hazz.kotlinmvp.glide.GlideApp.with(mContext)
+                            override fun fillBannerItem(bgaBanner: BGABanner?, imageView: ImageView?,
+                                                        feedImageUrl: String?, position: Int) {
+                                GlideApp.with(mContext)
                                         .load(feedImageUrl)
-                                        .transition(com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions().crossFade())
+                                        .transition(DrawableTransitionOptions().crossFade())
                                         .placeholder(R.drawable.placeholder_banner)
                                         .into(imageView)
 
@@ -226,18 +234,18 @@ class HomeAdapter(context: Context, data: ArrayList<HomeBean.Issue.Item>)
      * @param view
      */
     private fun goToVideoPlayer(activity: Activity, view: View, itemData: HomeBean.Issue.Item) {
-//        val intent = Intent(activity, VideoDetailActivity::class.java)
-//        intent.putExtra(Constants.BUNDLE_VIDEO_DATA, itemData)
-//        intent.putExtra(VideoDetailActivity.Companion.TRANSITION, true)
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-//            val pair = Pair<View, String>(view, VideoDetailActivity.Companion.IMG_TRANSITION)
-//            val activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                    activity, pair)
-//            ActivityCompat.startActivity(activity, intent, activityOptions.toBundle())
-//        } else {
-//            activity.startActivity(intent)
-//            activity.overridePendingTransition(R.anim.anim_in, R.anim.anim_out)
-//        }
+        val intent = Intent(activity, VideoDetailActivity::class.java)
+        intent.putExtra(Constants.BUNDLE_VIDEO_DATA, itemData)
+        intent.putExtra(VideoDetailActivity.Companion.TRANSITION, true)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            val pair = Pair<View, String>(view, VideoDetailActivity.IMG_TRANSITION)
+            val activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    activity, pair)
+            ActivityCompat.startActivity(activity, intent, activityOptions.toBundle())
+        } else {
+            activity.startActivity(intent)
+            activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
     }
 
 

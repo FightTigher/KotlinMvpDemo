@@ -51,5 +51,17 @@
         <activity
             android:name=".ui.activity.CategoryDetailActivity"
             android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.activity.WatchHistoryActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.activity.AboutActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.activity.ProfileHomePageActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>

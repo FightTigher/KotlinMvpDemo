@@ -1,6 +1,10 @@
 package com.ecovacs.kotlinmvpdemo.ui.fragment
 
+import android.annotation.TargetApi
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -11,6 +15,7 @@ import com.ecovacs.kotlinmvpdemo.mvp.model.bean.HomeBean
 import com.ecovacs.kotlinmvpdemo.mvp.presenter.HomePresenter
 import com.ecovacs.kotlinmvpdemo.net.exception.ErrorStatus
 import com.ecovacs.kotlinmvpdemo.showToast
+import com.ecovacs.kotlinmvpdemo.ui.activity.SearchActivity
 import com.ecovacs.kotlinmvpdemo.ui.adapter.HomeAdapter
 import com.ecovacs.kotlinmvpdemo.utils.StatusBarUtil
 import com.orhanobut.logger.Logger
@@ -127,8 +132,14 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun openSearchActivity() {
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, iv_search, iv_search.transitionName)
+            startActivity(Intent(activity, SearchActivity::class.java), options.toBundle())
+        } else {
+            startActivity(Intent(activity, SearchActivity::class.java))
+        }
 
     }
 

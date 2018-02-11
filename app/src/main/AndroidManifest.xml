@@ -63,5 +63,9 @@
         <activity
             android:name=".ui.activity.ProfileHomePageActivity"
             android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.activity.SearchActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>
